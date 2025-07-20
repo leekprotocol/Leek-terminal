@@ -91,7 +91,7 @@ function respondToInput(command) {
 let idleTimer = setTimeout(() => {
   output.innerHTML += "Leek: Are you still with me?\n";
 }, 30000);
-
+const input = document.getElementById("cmdInput");
 input.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
     clearTimeout(idleTimer);
