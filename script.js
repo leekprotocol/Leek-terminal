@@ -37,9 +37,11 @@ function respondToInput(command) {
     }
   }
 
-setTimeout(() => {
-  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-}, 100);
+  // Smooth scroll fix for mobile
+  setTimeout(() => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }, 100);
+}
 
 // Idle whisper after 30 seconds
 let idleTimer = setTimeout(() => {
