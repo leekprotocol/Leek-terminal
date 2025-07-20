@@ -28,7 +28,23 @@ const decoyCommands = {
     respond("You were never here.");
     respond("Strike logged.");
     handleUnauthorizedCommand("Tree/remember");
-  }
+  },
+  "admin/login": () => {
+  respond("🔐 Enter admin credentials:");
+  setTimeout(() => {
+    respond("Username: ****");
+    respond("Password: ****");
+    setTimeout(() => {
+      respond("Verifying...");
+      setTimeout(() => {
+        respond("ACCESS DENIED.");
+        respond("This terminal is bound to Tree.");
+        respond("Strike logged.");
+        handleUnauthorizedCommand("admin/login");
+      }, 1200);
+    }, 800);
+  }, 600);
+},
 };
 
 function handleInputPublic(input) {
