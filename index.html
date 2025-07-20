@@ -45,15 +45,16 @@
     <input type="text" id="cmdInput" autofocus />
   </div>
 
-  <script src="script.js"></script>
-  <script src="nl_logic.js"></script>
-  <script src="scripts/firewall.js"></script>
-<script src="scripts/public_logic.js"></script>
+<script src="Leek-terminal/script.js"></script>
+<script src="Leek-terminal/nl_logic.js"></script>
+<script src="Leek-terminal/scripts/firewall.js"></script>
+<script src="Leek-terminal/scripts/public_logic.js"></script>
 <script>
-  const isTree = sessionStorage.getItem("isTree") === "true";
+ <script>
+  const isTree = sessionStorage.getItem("isTree");
   if (isTree) {
     const s = document.createElement("script");
-    s.src = "scripts/private_logic.js";
+    s.src = "Leek-terminal/scripts/private_logic.js";
     document.head.appendChild(s);
   }
 </script>
