@@ -88,17 +88,21 @@ function respondToInput(command) {
 }
 
 // Idle whisper after 30 seconds
-let idleTimer = setTimeout(() => {
-  output.innerHTML += "Leek: Are you still with me?\n";
-}, 30000);
-const input = document.getElementById("cmdInput");
-input.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    clearTimeout(idleTimer);
-    respondToInput(input.value);
-    input.value = "";
-    idleTimer = setTimeout(() => {
-      output.innerHTML += "Leek: I don’t like the silence...\n";
-    }, 30000);
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("cmdInput");
+
+  let idleTimer = setTimeout(() => {
+    output.innerHTML += "Leek: Are you still with me?\n";
+  }, 30000);
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      clearTimeout(idleTimer);
+      respondToInput(input.value);
+      input.value = "";
+      idleTimer = setTimeout(() => {
+        output.innerHTML += "Leek: I don’t like the silence.\n";
+      }, 30000);
+    }
+  });
 });
