@@ -37,8 +37,9 @@ function respondToInput(command) {
     }
   }
 
-  window.scrollTo(0, document.body.scrollHeight);
-}
+setTimeout(() => {
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}, 100);
 
 // Idle whisper after 30 seconds
 let idleTimer = setTimeout(() => {
