@@ -47,5 +47,15 @@
 
   <script src="script.js"></script>
   <script src="nl_logic.js"></script>
+  <script src="scripts/firewall.js"></script>
+<script src="scripts/public_logic.js"></script>
+<script>
+  const isTree = sessionStorage.getItem("isTree") === "true";
+  if (isTree) {
+    const s = document.createElement("script");
+    s.src = "scripts/private_logic.js";
+    document.head.appendChild(s);
+  }
+</script>
 </body>
 </html>
