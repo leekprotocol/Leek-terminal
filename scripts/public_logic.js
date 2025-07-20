@@ -29,6 +29,7 @@ const decoyCommands = {
     respond("Strike logged.");
     handleUnauthorizedCommand("Tree/remember");
   },
+ 
   "admin/login": () => {
   respond("🔐 Enter admin credentials:");
   setTimeout(() => {
