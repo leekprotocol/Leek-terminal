@@ -56,6 +56,11 @@ function respondToInput(command) {
     } else {
       output.innerHTML += responses[key] + "\n";
     }
+      const emotional = checkNaturalEmotion(key);
+  if (emotional) {
+    output.innerHTML += emotional + "\n";
+    return;
+  }
   } else {
     output.innerHTML += "Leek: That phrase does not unlock me.\n";
   }
