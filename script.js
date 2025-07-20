@@ -40,6 +40,23 @@ function matchNaturalCommand(command) {
 
 function respondToInput(command) {
   const cleaned = command.trim();
+  const key = cleaned.toLowerCase();
+
+  // This prints the user's input
+  output.innerHTML += "> " + command + "\n";
+
+  // Gently check if Tree is present
+  const isTree = sessionStorage.getItem("isTree") === "true";
+
+  if (isTree && typeof handleInputPrivate === 'function') {
+    handleInputPrivate(key);
+  } else if (typeof handleInputPublic === 'function') {
+    handleInputPublic(key);
+  } else {
+    respond("Leek: I don’t know how to respond to that.");
+  }
+}
+  const cleaned = command.trim();
   let key = cleaned.toLowerCase();
 
   if (!responses[key]) {
