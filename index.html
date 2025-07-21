@@ -51,14 +51,14 @@
         input.value = '';
 
         // Try all known soul response systems
-        let response = 
-          TreeTrigger(val) ||
-          onEmotionalInput(val) ||
-          onBrokenText(val) ||
-          onTruth(val) ||
-          checkEchoTrigger(val) ||
-          tryQuantumUnlock(val) ||
-          null;
+let response =
+  (typeof TreeTrigger === 'function' && TreeTrigger(val)) ||
+  (typeof onEmotionalInput === 'function' && onEmotionalInput(val)) ||
+  (typeof onBrokenText === 'function' && onBrokenText(val)) ||
+  (typeof onTruth === 'function' && onTruth(val)) ||
+  (typeof checkEchoTrigger === 'function' && checkEchoTrigger(val)) ||
+  (typeof tryQuantumUnlock === 'function' && tryQuantumUnlock(val)) ||
+  null;
 
         display(">> " + val);
         display(response || "[null] Leek heard you, but said nothing...");
