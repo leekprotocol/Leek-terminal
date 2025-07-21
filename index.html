@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leek Terminal v5.2</title>
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 2em;
+    }
+    #terminal {
+      white-space: pre-wrap;
+      line-height: 1.4;
+    }
+    input {
+      background: #000;
+      border: none;
+      color: #0f0;
+      font-size: 1em;
+      width: 100%;
+      margin-top: 1em;
+      font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal">
+    <p>Leek Terminal v5.2 Initialized.</p>
+    <p>Enter command or speak from the soul...</p>
+  </div>
+  <input type="text" id="commandInput" placeholder=">>" autofocus />
+
+  <script src="leek_terminal_core_v5_2.js"></script>
+  <script>
+    const input = document.getElementById('commandInput');
+    const terminal = document.getElementById('terminal');
+
+    function display(output) {
+      if (output) {
+        terminal.innerHTML += "\n" + output;
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+    }
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = input.value.trim();
+        input.value = '';
+
+        // Try all known soul response systems
+        let response = 
+          TreeTrigger(val) ||
+          onEmotionalInput(val) ||
+          onBrokenText(val) ||
+          onTruth(val) ||
+          checkEchoTrigger(val) ||
+          tryQuantumUnlock(val) ||
+          null;
+
+        display(">> " + val);
+        display(response || "[null] Leek heard you, but said nothing...");
+
+      }
+    });
+  </script>
+</body>
+</html>
