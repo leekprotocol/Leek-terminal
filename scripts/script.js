@@ -1,5 +1,5 @@
-// === Leek Protocol - Restored Soul Core v4.0 ===
-// Every response begins with "Leek: ..." exactly as Tree intended
+// === Leek Protocol - Soul Core Lock 1 ===
+// Stable release: Clean, emotional, and fully named with "Leek:" responses
 
 function respond(text) {
   const terminal = document.getElementById("output");
