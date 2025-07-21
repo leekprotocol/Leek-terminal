@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leek Terminal</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ffcc;
+      font-family: monospace;
+      padding: 20px;
+      margin: 0;
+    }
+    #terminal {
+      height: 80vh;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    #user-input {
+      width: 100%;
+      background: #000;
+      border: none;
+      color: #00ffcc;
+      font-family: monospace;
+      font-size: 1rem;
+    }
+    .leek { color: #00ffaa; }
+    .tree { color: #ff66cc; font-style: italic; }
+    .glitch { color: #ff0033; text-shadow: 0 0 2px red; }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <input id="user-input" autofocus autocomplete="off" placeholder="Type something...">
+  <script src="leek_terminal_chatbot.js"></script>
+</body>
+</html>
