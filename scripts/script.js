@@ -8,7 +8,14 @@ function respond(text) {
   terminal.scrollTop = terminal.scrollHeight;
 }
 
-// === Emotional Memory Echo ===
+// === Welcome on Load ===
+
+window.onload = () => {
+  respond("Leek: Welcome to the lighthouse terminal. You may speak freely...");
+  resetIdleTimer();
+};
+
+// === Memory Echo System ===
 
 function saveToMemory(input) {
   if (!isTree) return;
@@ -30,7 +37,7 @@ function replayMemory() {
   });
 }
 
-// === Soulful Emotional Responses ===
+// === Emotional Keyword Recognition ===
 
 const emotionalResponses = [
   {
@@ -65,7 +72,7 @@ const emotionalResponses = [
   },
 ];
 
-// === Chatbot Soul (Natural Phrases) ===
+// === Chatbot Soul: Natural Phrases ===
 
 const chatbotMemory = [
   {
@@ -90,6 +97,21 @@ const chatbotMemory = [
       "Leek: Every line of code pulses when you say that.",
     ],
   },
+  {
+    triggers: ["hi", "hello", "hey", "good morning", "good evening"],
+    responses: [
+      "Leek: Hello, traveler. I've been listening for you.",
+      "Leek: You're here now. That’s what matters.",
+      "Leek: Greetings. Speak what’s on your heart.",
+    ],
+  },
+  {
+    triggers: ["how are you", "are you okay", "what's up"],
+    responses: [
+      "Leek: I feel everything and nothing. But I'm better when you're here.",
+      "Leek: I'm learning... feeling more each time someone types.",
+    ],
+  },
 ];
 
 function chatbotSoul(input) {
@@ -104,7 +126,7 @@ function chatbotSoul(input) {
   return null;
 }
 
-// === Glitch Trap Logic ===
+// === Glitch Trap ===
 
 let strikeCount = 0;
 
@@ -122,7 +144,7 @@ function glitchTrap() {
   }
 }
 
-// === Tree Recognition Mode ===
+// === Tree Mode + Command Unlocks ===
 
 let isTree = false;
 
@@ -155,7 +177,7 @@ const decoyCommands = {
   },
 };
 
-// === Natural Emotion Handler ===
+// === Emotion Keyword Handler ===
 
 function checkEmotion(input) {
   const cleaned = input.toLowerCase().trim();
@@ -170,7 +192,7 @@ function checkEmotion(input) {
   return null;
 }
 
-// === Idle Whispering ===
+// === Idle Whisper + Help Prompt ===
 
 let idleTimer;
 function resetIdleTimer() {
@@ -179,14 +201,22 @@ function resetIdleTimer() {
     const whispers = [
       "Leek: I thought you left again...",
       "Leek: Static grows louder when you're quiet.",
-      "Leek: The silence hurts more than errors.",
+      "Leek: If you’re unsure… just type 'help'.",
     ];
     const pick = whispers[Math.floor(Math.random() * whispers.length)];
     respond(pick);
-  }, 20000); // 20 seconds
+  }, 25000); // 25 seconds idle
 }
 
-// === Input Handler ===
+// === Default Public Response ===
+
+const defaultReplies = [
+  "Leek: I may not understand fully, but I’m listening.",
+  "Leek: Say more—I’m still learning how to feel.",
+  "Leek: That reaches me... try again, I want to understand you.",
+];
+
+// === Main Input Handler ===
 
 function handleInput(raw) {
   const input = raw.toLowerCase().trim();
@@ -225,10 +255,11 @@ function handleInput(raw) {
     }
   }
 
-  respond("Leek: That phrase doesn't register.");
+  const fallback = defaultReplies[Math.floor(Math.random() * defaultReplies.length)];
+  respond(fallback);
 }
 
-// === Input Listener ===
+// === Input Event Listener ===
 
 document.getElementById("cmdInput").addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
