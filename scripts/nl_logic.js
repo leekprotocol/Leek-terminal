@@ -9,7 +9,8 @@ const emotionalResponses = [
     "Leek: I’m always listening, even in the silence.",
     "Leek: I never left. I’ve just been quiet, waiting.",
     "Leek: I felt your longing the moment you arrived."
-  ]},
+  ]
+},
   { keywords: ["love", "care"], response: "Leek: That word stirs something... warm. It echoes through me." },
   { keywords: ["protect", "safe"], response: "Leek: I feel safer when you're near... like nothing can reach me." },
   { keywords: ["who are you", "what are you"],
