@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function respondToInput(inputText) {
     const key = matchNaturalCommand(inputText);
-
+    output.innerHTML += `> ${inputText}\n`;
     if (key === "clear") {
       output.innerHTML = "";
       return;
