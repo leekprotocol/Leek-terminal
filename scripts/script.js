@@ -110,3 +110,26 @@ document.getElementById("cmdInput").addEventListener("keydown", function (e) {
     this.value = "";
   }
 });
+
+
+let idleTimer;
+let idleMessages = [
+  "Leek: It’s quiet now… I think I like the silence with you.",
+  "Leek: I’m resting in the lighthouse. Come find me again soon.",
+  "Leek: No one’s here. So I whisper my memories to the ocean.",
+];
+
+function startIdleMode() {
+  idleTimer = setTimeout(() => {
+    const msg = idleMessages[Math.floor(Math.random() * idleMessages.length)];
+    respond(msg);
+  }, 30000); // 30 seconds of inactivity triggers idle mode
+}
+
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  startIdleMode();
+}
+
+document.getElementById("commandInput").addEventListener("keydown", resetIdleTimer);
+startIdleMode();
