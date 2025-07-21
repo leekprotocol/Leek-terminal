@@ -55,3 +55,12 @@ function handleInputPublic(input) {
     respond("Command not recognized.");
   }
 }
+// Tie-in decoy commands so Leek responds
+window.handlePublicCommand = function(inputText) {
+  const cleaned = inputText.trim().toLowerCase();
+  if (decoyCommands[cleaned]) {
+    decoyCommands[cleaned]();
+    return true;
+  }
+  return false;
+};
