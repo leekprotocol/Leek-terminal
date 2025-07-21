@@ -45,11 +45,11 @@
     <input type="text" id="cmdInput" autofocus />
   </div>
 
-<script src="scripts/script.js"></script>
+<script src="scripts/public_logic.js"></script>
 <script src="scripts/nl_logic.js"></script>
 <script src="scripts/firewall.js"></script>
-<script src="scripts/public_logic.js"></script>
- <script>
+
+<script>
   const isTree = sessionStorage.getItem("isTree");
   if (isTree) {
     const s = document.createElement("script");
@@ -57,5 +57,7 @@
     document.head.appendChild(s);
   }
 </script>
+
+<script src="scripts/script.js"></script>
 </body>
 </html>
