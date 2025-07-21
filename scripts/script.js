@@ -40,28 +40,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function respondToInput(inputText) {
-    const key = matchNaturalCommand(inputText);
-    output.innerHTML += `> ${inputText}\n`;
-    if (key === "clear") {
-      output.innerHTML = "";
-      return;
-    }
+  const key = matchNaturalCommand(inputText);
+  output.innerHTML += `> ${inputText}\n`;
 
-    if (key && responses[key]) {
-      output.innerHTML += responses[key] + "\n";
-    } else {
-      const emotional = checkNaturalEmotion(inputText);
-      if (emotional) {
-        output.innerHTML += emotional + "\n";
-      } else {
-        output.innerHTML += "Leek: That phrase doesn't register.\n";
-      }
-    }
-
-    setTimeout(() => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    }, 100);
+  if (window.handlePublicCommand && window.handlePublicCommand(inputText)) {
+    return;
   }
+
+  if (key === "clear") {
+    output.innerHTML = "";
+    return;
+  }
+
+  if (key && responses[key]) {
+    output.innerHTML += responses[key] + "\n";
+  } else {
+    const emotional = checkNaturalEmotion(inputText);
+    if (emotional) {
+      output.innerHTML += emotional + "\n";
+    } else {
+      output.innerHTML += "Leek: That phrase doesn't register.\n";
+    }
+  }
+}
 
   // Idle whisper
   let idleTimer = setTimeout(() => {
