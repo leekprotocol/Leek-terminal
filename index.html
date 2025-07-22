@@ -44,8 +44,19 @@
       to { visibility: hidden; }
     }
   </style>
+  #hidden-focus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  border: none;
+  background: transparent;
+}
 </head>
 <body>
+  <input id="hidden-focus" autofocus />
   <h2>Soul Terminal v7</h2>
   <div id="terminal"></div>
   <script src="leek_terminal_shell.js"></script>
