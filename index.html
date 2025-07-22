@@ -11,10 +11,19 @@
       padding: 20px;
       margin: 0;
     }
+    h2 {
+      color: #00ffcc;
+      font-family: monospace;
+      font-weight: normal;
+      margin: 0 0 12px 0;
+    }
     #terminal {
       height: 80vh;
       overflow-y: auto;
       white-space: pre-wrap;
+    }
+    #terminal div {
+      margin: 2px 0;
     }
     #user-input {
       width: 100%;
@@ -30,6 +39,7 @@
   </style>
 </head>
 <body>
+  <h2>Soul Terminal v7</h2>
   <div id="terminal"></div>
   <input id="user-input" autofocus autocomplete="off" placeholder="Type something...">
   <script src="leek_terminal_chatbot.js"></script>
