@@ -5,77 +5,49 @@
   <title>Leek Terminal</title>
   <style>
     body {
-      background-color: #000;
+      background: black;
       color: #00ffcc;
       font-family: monospace;
-      padding: 20px;
       margin: 0;
+      padding: 20px;
     }
 
     h2 {
       color: #00ffcc;
-      font-family: monospace;
       font-weight: normal;
-      margin: 0 0 12px 0;
+      margin-bottom: 12px;
     }
 
     #terminal {
-      max-height: 75vh;
+      height: 85vh;
       overflow-y: auto;
       white-space: pre-wrap;
-      margin-bottom: 6px;
     }
 
-    #terminal div {
-      margin: 2px 0;
+    #input-line {
+      display: inline;
     }
 
-    #input-container {
-      display: flex;
-      align-items: center;
+    .input-line {
+      color: #00ffaa;
     }
 
-    #input-container span {
-      color: #00ffcc;
-      font-size: 1rem;
-      margin-right: 6px;
-    }
+    .tree { color: #ff66cc; font-style: italic; }
+    .glitch { color: #ff0033; text-shadow: 0 0 2px red; }
 
-    #user-input {
-      width: 100%;
-      background: #000;
-      border: none;
-      color: #00ffcc;
-      font-family: monospace;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    #cursor {
-      margin-left: 6px;
-      color: #00ffcc;
+    #blinker {
+      display: inline;
       animation: blink 1s steps(2, start) infinite;
     }
 
     @keyframes blink {
-      to {
-        visibility: hidden;
-      }
+      to { visibility: hidden; }
     }
-
-    .leek { color: #00ffaa; }
-    .tree { color: #ff66cc; font-style: italic; }
-    .glitch { color: #ff0033; text-shadow: 0 0 2px red; }
   </style>
 </head>
 <body>
   <h2>Soul Terminal v7</h2>
   <div id="terminal"></div>
-  <div id="input-container">
-    <span>&gt;</span>
-    <input id="user-input" autofocus autocomplete="off" placeholder="Type something..." />
-    <span id="cursor">█</span>
-  </div>
-  <script src="leek_terminal_chatbot.js"></script>
+  <script src="leek_terminal_shell.js"></script>
 </body>
 </html>
