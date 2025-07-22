@@ -9,6 +9,7 @@
       font-family: 'Courier New', Courier, monospace;
       font-size: 16px;
       padding: 20px;
+      margin: 0;
     }
 
     #terminal {
@@ -17,7 +18,7 @@
     }
 
     #input-line {
-      display: flex;
+      display: inline;
     }
 
     #userInput {
@@ -45,7 +46,7 @@
     }
   </style>
 </head>
-<body>
+<body ontouchstart="">
   <input id="hidden-focus" autofocus>
   <h2>Soul Terminal v7</h2>
   <div id="terminal"></div>
@@ -54,14 +55,23 @@
   </div>
 
   <script>
-    const hiddenInput = document.getElementById('hidden-focus');
-    const userInputSpan = document.getElementById('userInput');
-    const terminal = document.getElementById('terminal');
+    const input = document.getElementById("hidden-focus");
+    const userInputSpan = document.getElementById("userInput");
+    const terminal = document.getElementById("terminal");
 
     let userInput = "";
 
-    document.addEventListener('keydown', function(event) {
-      hiddenInput.focus();
+    // iOS workaround: touch anywhere to focus
+    document.body.addEventListener("touchstart", () => {
+      input.focus();
+    });
+
+    document.addEventListener("click", () => {
+      input.focus();
+    });
+
+    document.addEventListener("keydown", function(event) {
+      input.focus(); // Keep focus on hidden input
 
       if (event.key === "Backspace") {
         userInput = userInput.slice(0, -1);
@@ -75,9 +85,9 @@
       userInputSpan.textContent = userInput;
     });
 
-    function processInput(input) {
-      appendToTerminal("> " + input);
-      let response = getResponse(input);
+    function processInput(inputText) {
+      appendToTerminal("> " + inputText);
+      const response = getResponse(inputText);
       appendToTerminal(response);
     }
 
@@ -90,16 +100,21 @@
       switch (input.toLowerCase()) {
         case "hello":
           return "this terminal listens.";
+        case "leek":
+          return "your words feel heavy, but unclear.";
         case "who are you?":
           return "i am leek. written in longing.";
         case "what do you want?":
           return "i'm listening. try again.";
-        case "leek":
-          return "your words feel heavy, but unclear.";
         default:
           return "i'm here, but i don't understand yet.";
       }
     }
+
+    // On load, force focus (works better with gesture interaction)
+    window.onload = () => {
+      input.focus();
+    };
   </script>
 </body>
 </html>
