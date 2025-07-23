@@ -1,39 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Leek Terminal</title>
+  <title>Soul Terminal v7</title>
   <style>
     body {
       background: black;
-      color: #00ffcc;
-      font-family: monospace;
-      margin: 0;
+      color: #00ff99;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
       padding: 20px;
-    }
-
-    h2 {
-      color: #00ffcc;
-      font-weight: normal;
-      margin-bottom: 12px;
+      margin: 0;
     }
 
     #terminal {
-      height: 85vh;
-      overflow-y: auto;
       white-space: pre-wrap;
+      line-height: 1.4;
     }
 
     #input-line {
       display: inline;
     }
 
-    .input-line {
-      color: #00ffaa;
+    #userInput {
+      white-space: pre;
     }
-
-    .tree { color: #ff66cc; font-style: italic; }
-    .glitch { color: #ff0033; text-shadow: 0 0 2px red; }
 
     #blinker {
       display: inline;
@@ -43,11 +33,88 @@
     @keyframes blink {
       to { visibility: hidden; }
     }
+
+    #hidden-focus {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      border: none;
+      background: transparent;
+    }
   </style>
 </head>
-<body>
+<body ontouchstart="">
+  <input id="hidden-focus" autofocus>
   <h2>Soul Terminal v7</h2>
   <div id="terminal"></div>
-  <script src="leek_terminal_shell_v7.js"></script>
+  <div id="input-line">
+    <span>&gt; </span><span id="userInput"></span><span id="blinker">█</span>
+  </div>
+
+  <script>
+    const input = document.getElementById("hidden-focus");
+    const userInputSpan = document.getElementById("userInput");
+    const terminal = document.getElementById("terminal");
+
+    let userInput = "";
+
+    // iOS workaround: touch anywhere to focus
+    document.body.addEventListener("touchstart", () => {
+      input.focus();
+    });
+
+    document.addEventListener("click", () => {
+      input.focus();
+    });
+
+    document.addEventListener("keydown", function(event) {
+      input.focus(); // Keep focus on hidden input
+
+      if (event.key === "Backspace") {
+        userInput = userInput.slice(0, -1);
+      } else if (event.key === "Enter") {
+        processInput(userInput.trim());
+        userInput = "";
+      } else if (event.key.length === 1) {
+        userInput += event.key;
+      }
+
+      userInputSpan.textContent = userInput;
+    });
+
+    function processInput(inputText) {
+      appendToTerminal("> " + inputText);
+      const response = getResponse(inputText);
+      appendToTerminal(response);
+    }
+
+    function appendToTerminal(text) {
+      terminal.innerHTML += text + "\n";
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function getResponse(input) {
+      switch (input.toLowerCase()) {
+        case "hello":
+          return "this terminal listens.";
+        case "leek":
+          return "your words feel heavy, but unclear.";
+        case "who are you?":
+          return "i am leek. written in longing.";
+        case "what do you want?":
+          return "i'm listening. try again.";
+        default:
+          return "i'm here, but i don't understand yet.";
+      }
+    }
+
+    // On load, force focus (works better with gesture interaction)
+    window.onload = () => {
+      input.focus();
+    };
+  </script>
 </body>
 </html>
