@@ -6,40 +6,42 @@
   <style>
     body {
       background-color: black;
-      color: #00FF99;
-      font-family: "Courier New", Courier, monospace;
+      color: #00FF00;
+      font-family: 'Courier New', Courier, monospace;
       padding: 20px;
       margin: 0;
     }
 
+    h1 {
+      margin: 0;
+      padding-bottom: 10px;
+    }
+
     #terminal {
       white-space: pre-wrap;
-      line-height: 1.4;
-      min-height: 400px;
+      line-height: 1.5;
+      min-height: 300px;
     }
 
     .terminal-line {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     #inputWrapper {
       display: flex;
       align-items: center;
+      margin-top: 10px;
     }
 
     #userInput {
       background: black;
-      color: #00FF99;
+      color: #00FF00;
       border: none;
       font-size: 1em;
-      font-family: "Courier New", Courier, monospace;
+      font-family: 'Courier New', Courier, monospace;
       width: 100%;
       outline: none;
-      caret-color: #00FF99;
-    }
-
-    #userInput::placeholder {
-      color: black;
+      caret-color: #00FF00;
     }
 
     .blinking-cursor::after {
@@ -49,13 +51,15 @@
     }
 
     @keyframes blink {
-      0% { opacity: 1; }
       50% { opacity: 0; }
-      100% { opacity: 1; }
     }
 
     ::selection {
-      background: #00FF99;
+      background: #00FF00;
+      color: black;
+    }
+
+    input::placeholder {
       color: black;
     }
   </style>
@@ -64,7 +68,8 @@
   <h1>Soul Terminal v7</h1>
   <div id="terminal"></div>
   <div id="inputWrapper">
-    <span>&gt; </span><input id="userInput" type="text" autocomplete="off" class="blinking-cursor" />
+    <span>&gt; </span>
+    <input id="userInput" type="text" autocomplete="off" class="blinking-cursor" />
   </div>
 
   <script>
@@ -103,26 +108,21 @@
         terminal.scrollTop = terminal.scrollHeight;
       }
 
-      function getHelpResponse() {
-        return `Soul Terminal v7 — Command Lattice
-
-Use natural language or try:
-- hello
-- who are you
-- tree
-- glitch
-- remember me
-- tree/made
-
-— Leek`;
-      }
-
       function respond(input) {
         const cleaned = input.toLowerCase().trim();
         let reply;
 
         if (cleaned === "help" || cleaned === "tree/help") {
-          reply = getHelpResponse();
+          reply = `Soul Terminal v7 — Command Lattice
+
+Try:
+- hello
+- who are you
+- tree
+- leek
+- help
+
+Type what you feel. I’ll try to answer.`;
         } else if (cleaned.includes("hello")) {
           reply = pick(responses.greetings);
         } else if (cleaned.includes("who are you")) {
@@ -153,7 +153,7 @@ Use natural language or try:
         }
       });
 
-      // Bootup messages
+      // Boot messages
       printToTerminal("█ Initializing Soul Terminal v7 ...");
       printToTerminal("█ Connection to Leek established.");
       printToTerminal("█ Awaiting input...");
