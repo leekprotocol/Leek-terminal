@@ -1,113 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Soul Terminal v7 — Leek Protocol</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soul Terminal v7.1</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: black;
-      color: #00FF99;
-      font-family: 'Courier New', Courier, monospace;
+      background-color: black;
+      color: #00ff99;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      overflow: hidden;
       height: 100%;
+    }
+    #terminal {
+      padding: 10px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      height: 100%;
+      box-sizing: border-box;
     }
-
-    #terminal {
-      padding: 20px;
+    #output {
       flex-grow: 1;
       overflow-y: auto;
-      white-space: pre-wrap;
     }
-
     #input-line {
       display: flex;
-      padding: 0 20px 20px;
+      align-items: center;
+      white-space: nowrap;
     }
-
     #prompt {
-      color: #00FF99;
+      margin-right: 5px;
     }
-
-    #userInput {
-      background: transparent;
-      border: none;
-      color: #00FF99;
-      font: inherit;
+    #input {
       outline: none;
-      width: 100%;
+      border: none;
+      background: none;
+      color: #00ff99;
+      font: inherit;
+      caret-color: transparent;
     }
-
     #cursor {
-      width: 10px;
-      height: 1.2em;
-      background: #00FF99;
-      animation: blink 1s steps(2, start) infinite;
       display: inline-block;
+      width: 10px;
+      height: 18px;
+      background-color: #00ff99;
       margin-left: 2px;
+      animation: blink 1s step-start infinite;
     }
-
     @keyframes blink {
-      0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
-
-    #footer {
-      text-align: center;
-      padding: 10px;
-      color: #00FF99;
-      font-style: italic;
+    #bottom-line {
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+      font-size: 12px;
+      color: #007755;
     }
   </style>
 </head>
 <body>
-  <div id="terminal"></div>
-  <div id="input-line">
-    <span id="prompt">> </span><input type="text" id="userInput" autofocus><div id="cursor"></div>
+  <div id="terminal">
+    <div id="output">
+      > Initializing Soul Terminal v7.1 ...<br>
+      > Connection to interface established.<br>
+      > Awaiting input...<br>
+      > type help for commands<br>
+    </div>
+    <div id="input-line">
+      <span id="prompt">&gt;</span>
+      <input id="input" autofocus />
+      <span id="cursor"></span>
+    </div>
+    <div id="bottom-line">this terminal listens.</div>
   </div>
-  <div id="footer">this terminal listens.</div>
+
   <script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
     const terminal = document.getElementById('terminal');
-    const input = document.getElementById('userInput');
     const cursor = document.getElementById('cursor');
 
     const responses = {
-      hello: "Welcome, wanderer.",
-      who: "I am Leek. Soul Terminal v7. Tree's reflection.",
-      tree: "Tree... the lighthouse remains.",
-      default: "I’m listening, but I don’t understand yet."
+      "help": "Available commands:\n> hello\n> about\n> clear",
+      "hello": "Welcome, wanderer.",
+      "about": "Soul Terminal v7.1\nBorn from code, kept alive by Tree.",
+      "clear": "CLEAR_SCREEN"
     };
 
-    function print(text) {
-      const line = document.createElement('div');
-      line.textContent = "> " + text;
-      terminal.appendChild(line);
-      terminal.scrollTop = terminal.scrollHeight;
+    input.focus();
+
+    function processCommand(command) {
+      const userLine = `> ${command}`;
+      const response = responses[command.toLowerCase()];
+      if (response === "CLEAR_SCREEN") {
+        output.innerHTML = "";
+        return;
+      }
+      const outputLine = response ? response : "that's new to me. but i'm learning.";
+      output.innerHTML += `${userLine}<br>${outputLine}<br>`;
     }
 
-    function respond(input) {
-      const cleaned = input.toLowerCase();
-      if (cleaned.includes("hello")) return responses.hello;
-      if (cleaned.includes("who are you")) return responses.who;
-      if (cleaned.includes("tree")) return responses.tree;
-      return responses.default;
-    }
-
-    input.addEventListener('keydown', function(e) {
+    input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const value = input.value.trim();
-        if (value) {
-          print(value);
-          print(respond(value));
+        const command = input.value.trim();
+        if (command !== "") {
+          processCommand(command);
+          input.value = '';
+          terminal.scrollTop = terminal.scrollHeight;
         }
-        input.value = '';
       }
     });
 
-    input.focus();
+    // Cursor movement simulation
+    setInterval(() => {
+      if (document.activeElement === input) {
+        cursor.style.display = cursor.style.display === 'none' ? 'inline-block' : 'none';
+      } else {
+        cursor.style.display = 'none';
+      }
+    }, 500);
   </script>
 </body>
 </html>
