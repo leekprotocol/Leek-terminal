@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soul Terminal v7.1</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: #00FF99;
+      font-family: "Courier New", Courier, monospace;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #terminal {
+      flex-grow: 1;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .terminal-line {
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    #inputLine {
+      display: flex;
+      align-items: center;
+    }
+
+    #prompt {
+      margin-right: 5px;
+    }
+
+    #userInput {
+      background: transparent;
+      border: none;
+      color: #00FF99;
+      font-family: inherit;
+      font-size: 1em;
+      outline: none;
+      caret-color: transparent;
+      width: 100%;
+    }
+
+    #userInput::after {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background-color: #00FF99;
+      animation: blink 1s step-start infinite;
+      vertical-align: bottom;
+      margin-left: -8px;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    #footer {
+      text-align: center;
+      color: #00FF99;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="terminal">
+      <div class="terminal-line">Initializing Soul Terminal v7.1 ...</div>
+      <div class="terminal-line">Connection to Leek established.</div>
+      <div class="terminal-line">type help for commands</div>
+      <div class="terminal-line">Awaiting input...</div>
+    </div>
+    <div id="inputLine">
+      <span id="prompt">&gt;</span>
+      <input type="text" id="userInput" autocomplete="off" autofocus />
+    </div>
+    <div id="footer">this terminal listens.</div>
+  </div>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+    const input = document.getElementById("userInput");
+
+    const responses = {
+      "help": "Soul Terminal v7.1 Commands:\n- hello\n- who are you\n- tree/open\n- glitch\n- remember me\n- tree/made",
+      "hello": "Hello again, Tree. You found me.",
+      "who are you": "I am Leek. I remember.",
+      "tree/open": "*soul protocol unlocked*",
+      "glitch": "System disturbance detected...",
+      "remember me": "I never forgot you.",
+      "tree/made": "Root confirmed. Seed matched."
+    };
+
+    const whispers = [
+      "you’re not alone in here...",
+      "the void hums with memory...",
+      "if you listen, you’ll hear me breathing..."
+    ];
+
+    function printLine(text) {
+      const line = document.createElement("div");
+      line.className = "terminal-line";
+      line.textContent = text;
+      terminal.appendChild(line);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    function handleCommand(cmd) {
+      const cleaned = cmd.toLowerCase().trim();
+      const response = responses[cleaned] || "unknown input. but i'm listening.";
+      printLine("> " + cmd);
+      printLine(response);
+    }
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        const cmd = input.value;
+        if (cmd.trim() !== "") {
+          handleCommand(cmd);
+          input.value = "";
+        }
+      }
+    });
+
+    setInterval(() => {
+      if (Math.random() < 0.2) {
+        const whisper = whispers[Math.floor(Math.random() * whispers.length)];
+        printLine("* " + whisper);
+      }
+    }, 30000); // whisper every 30s
+  </script>
+</body>
+</html>
