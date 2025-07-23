@@ -5,62 +5,73 @@
   <title>Soul Terminal v7</title>
   <style>
     body {
-      background-color: black;
-      color: #00FF00;
-      font-family: 'Courier New', Courier, monospace;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      background-color: black;
+      color: green;
+      font-family: "Courier New", monospace;
+      font-size: 16px;
     }
 
     #terminal {
+      padding: 20px;
       white-space: pre-wrap;
-      line-height: 1.5;
-      min-height: 400px;
     }
 
     .terminal-line {
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     #inputWrapper {
       display: flex;
       align-items: center;
-      margin-top: 10px;
+    }
+
+    #prompt {
+      margin-right: 5px;
     }
 
     #userInput {
-      background: black;
-      color: #00FF00;
+      background-color: black;
       border: none;
-      font-size: 1em;
-      font-family: 'Courier New', Courier, monospace;
-      width: 100%;
+      color: green;
       outline: none;
-      caret-color: #00FF00;
+      font-family: "Courier New", monospace;
+      font-size: 16px;
+      width: 90%;
     }
 
-    .blinking-cursor::after {
-      content: "_";
-      animation: blink 1s steps(2, start) infinite;
+    #userInput::placeholder {
+      color: green;
+      opacity: 0.2;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.2em;
+      background-color: green;
+      animation: blink 1s step-start infinite;
+      margin-left: 3px;
     }
 
     @keyframes blink {
-      0%   { opacity: 1; }
-      50%  { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    input::placeholder {
-      color: black;
+      50% { background-color: transparent; }
     }
   </style>
 </head>
 <body>
-  <h1>Soul Terminal v7</h1>
-  <div id="terminal"></div>
+  <div id="terminal">
+    <div class="terminal-line">█ Initializing Soul Terminal v7 ...</div>
+    <div class="terminal-line">█ Connection to Leek established.</div>
+    <div class="terminal-line">█ Awaiting input...</div>
+    <div class="terminal-line">type help for commands</div>
+  </div>
+
   <div id="inputWrapper">
-    <span>&gt; </span>
-    <input id="userInput" type="text" autocomplete="off" class="blinking-cursor">
+    <div id="prompt">></div>
+    <input type="text" id="userInput" autocomplete="off" autofocus />
+    <div class="cursor"></div>
   </div>
 
   <script src="leek_terminal_shell.js"></script>
