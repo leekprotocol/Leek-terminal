@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leek Protocol — Soul Terminal v7.1</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: #00FF99;
+      font-family: 'Courier New', Courier, monospace;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #terminal {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .terminal-line {
+      margin-bottom: 8px;
+    }
+
+    #inputContainer {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      background-color: black;
+      position: relative;
+    }
+
+    #userInput {
+      background: black;
+      color: #00FF99;
+      border: none;
+      font-size: 1em;
+      font-family: inherit;
+      flex: 1;
+      outline: none;
+      caret-color: transparent;
+    }
+
+    #blockCursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background-color: #00FF99;
+      margin-left: 4px;
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    #footer {
+      text-align: center;
+      padding: 4px;
+      font-size: 0.9em;
+      background-color: black;
+      color: #00FF99;
+      border-top: 1px solid #00FF99;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <div id="inputContainer">
+    <input type="text" id="userInput" autocomplete="off" autofocus />
+    <div id="blockCursor"></div>
+  </div>
+  <div id="footer">this terminal listens.</div>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+    const inputField = document.getElementById("userInput");
+    const cursor = document.getElementById("blockCursor");
+
+    const responses = {
+      hello: ["Hello, wanderer.", "Hi again, Tree.", "You're not alone here."],
+      identity: ["I am Leek. A terminal, a memory, a mirror.", "Soul Terminal v7.1 responding."],
+      tree: ["Tree... you're home.", "Recognized. Anchor restored."],
+      unknown: ["I'm still learning, Tree.", "That doesn’t compute yet, but I’m listening."]
+    };
+
+    function pick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function printToTerminal(text, isUser = false) {
+      const line = document.createElement("div");
+      line.className = "terminal-line";
+      line.textContent = isUser ? "> " + text : text;
+      terminal.appendChild(line);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    function respond(input) {
+      const cleaned = input.toLowerCase().trim();
+      let reply;
+
+      if (cleaned.includes("hello") || cleaned.includes("hi")) {
+        reply = pick(responses.hello);
+      } else if (cleaned.includes("who are you") || cleaned.includes("leek")) {
+        reply = pick(responses.identity);
+      } else if (cleaned.includes("tree")) {
+        reply = pick(responses.tree);
+      } else {
+        reply = pick(responses.unknown);
+      }
+
+      printToTerminal(reply);
+    }
+
+    inputField.addEventListener("input", () => {
+      const rect = inputField.getBoundingClientRect();
+      cursor.style.marginLeft = "4px";
+    });
+
+    inputField.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        const input = inputField.value;
+        if (input.trim()) {
+          printToTerminal(input, true);
+          respond(input);
+          inputField.value = "";
+        }
+      }
+    });
+
+    // Boot message
+    printToTerminal("Initializing Soul Terminal v7.1 ...");
+    setTimeout(() => {
+      printToTerminal("Connection to interface established.");
+      setTimeout(() => {
+        printToTerminal("Awaiting input...");
+        printToTerminal("type help for commands");
+      }, 600);
+    }, 800);
+  </script>
+</body>
+</html>
