@@ -68,15 +68,17 @@
       0%, 50% { opacity: 1; }
       50.01%, 100% { opacity: 0; }
     }
-
-    .footer-line {
-      position: absolute;
-      bottom: 8px;
-      width: 100%;
-      text-align: center;
-      color: #00FF99;
-      font-size: 0.85em;
-      font-family: 'Courier New', monospace;
+    #footerWhisper {
+  position: fixed;
+  bottom: 12px;
+  width: 100%;
+  text-align: center;
+  color: #00FF99;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8em;
+  opacity: 0.7;
+  pointer-events: none;
+}
     }
 
     #userInput {
