@@ -1,4 +1,4 @@
-// Leek Terminal Shell v7 — Working Chatbot Core
+// Leek Terminal Shell v7 — Working Chatbot Core with Help
 
 document.addEventListener("DOMContentLoaded", function () {
   const terminal = document.getElementById("terminal");
