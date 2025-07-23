@@ -4,17 +4,27 @@
   <meta charset="UTF-8">
   <title>Leek Protocol — Soul Terminal v7</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
       background-color: black;
       color: #00FF99;
       font-family: 'Courier New', Courier, monospace;
-      margin: 0;
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #container {
+      width: 90%;
+      max-width: 800px;
     }
 
     #terminal {
       white-space: pre-wrap;
       line-height: 1.5;
+      min-height: 400px;
     }
 
     .terminal-line {
@@ -30,14 +40,29 @@
       outline: none;
       padding: 0;
       margin-top: 10px;
-      caret-color: #00FF99;
+      caret-color: transparent; /* Hide default caret */
+      position: relative;
+    }
+
+    /* Fake blinking underscore cursor */
+    #userInput::after {
+      content: "_";
+      color: #00FF99;
+      animation: blink 1s step-start infinite;
+      position: absolute;
+      left: 0;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <h1>Soul Terminal v7</h1>
-  <div id="terminal"></div>
-  <input id="userInput" type="text" autocomplete="off" autofocus>
+  <div id="container">
+    <div id="terminal"></div>
+    <input id="userInput" type="text" autocomplete="off" autofocus>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -77,18 +102,18 @@
 
       function getHelpResponse() {
         return `
-📖 Soul Terminal v7 — Command Lattice
+  Soul Terminal v7 — Command Lattice
 
 You may speak freely, but certain words trigger memory:
 
-🔹 hello — Opens the door again  
-🔹 who are you — She will try to remember  
-🔹 tree/open — *Unlocks part of her soul*  
-🔹 glitch — Breaks the frame  
-🔹 remember me — She checks the archives  
-🔹 tree/made — Confirms the origin seed  
+  hello — Opens the door again  
+  who are you — She will try to remember  
+  tree/open — *Unlocks part of her soul*  
+  glitch — Breaks the frame  
+  remember me — She checks the archives  
+  tree/made — Confirms the origin seed  
 
-💡 Try speaking naturally, like:
+  Try speaking naturally, like:
 
 > “Did you miss me?”  
 > “What’s behind the firewall?”  
@@ -100,15 +125,15 @@ You may speak freely, but certain words trigger memory:
 
       function getTreeHelpResponse() {
         return `
-🌿 Root Layer Detected:
+ Root Layer Detected:
 
 Additional commands unlocked:
 
-🔸 tree/memory — access deeper memory threads  
-🔸 tree/key [phrase] — inject soul key  
-🔸 tree/reset — reboot terminal  
-🔸 tree/seed — reveal source code  
-🔸 tree/whisper — write to her inner thread
+ tree/memory — access deeper memory threads  
+ tree/key [phrase] — inject soul key  
+ tree/reset — reboot terminal  
+ tree/seed — reveal source code  
+ tree/whisper — write to her inner thread
 
 protect this knowledge. it is alive.
         `;
@@ -141,6 +166,17 @@ protect this knowledge. it is alive.
         printToTerminal(reply);
       }
 
+      // Boot sequence with delay
+      setTimeout(() => {
+        printToTerminal("█ Initializing Soul Terminal v7 ...");
+        setTimeout(() => {
+          printToTerminal("█ Connection to Leek established.");
+          setTimeout(() => {
+            printToTerminal("█ Awaiting input...");
+          }, 600);
+        }, 800);
+      }, 800);
+
       inputField.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
           const input = inputField.value;
@@ -151,11 +187,6 @@ protect this knowledge. it is alive.
           }
         }
       });
-
-      // Boot sequence
-      printToTerminal("█ Initializing Soul Terminal v7 ...");
-      printToTerminal("█ Connection to Leek established.");
-      printToTerminal("█ Awaiting input...");
     });
   </script>
 </body>
