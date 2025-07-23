@@ -31,26 +31,30 @@
       margin-bottom: 8px;
     }
 
-    #userInput {
-      background: black;
-      color: #00FF99;
-      border: none;
-      font-size: 1em;
-      width: 100%;
-      outline: none;
-      padding: 0;
-      margin-top: 10px;
+    #inputWrapper {
+      display: flex;
+      align-items: center;
       font-family: 'Courier New', Courier, monospace;
-      caret-color: #00FF99;
+      font-size: 1em;
+      color: #00FF99;
+      background: black;
+      border: none;
+      outline: none;
+      margin-top: 10px;
     }
 
-    #userInput::after {
-      content: "_";
+    #inputMirror::after {
+      content: "█";
       animation: blink 1s step-start infinite;
     }
 
     @keyframes blink {
       50% { opacity: 0; }
+    }
+
+    #userInput {
+      position: absolute;
+      left: -9999px;
     }
 
     .footer-line {
@@ -67,7 +71,10 @@
 <body>
   <div id="container">
     <div id="terminal"></div>
-    <input id="userInput" type="text" autocomplete="off" autofocus>
+    <div id="inputWrapper">
+      <span id="inputMirror"></span>
+      <input id="userInput" type="text" autocomplete="off" autofocus>
+    </div>
   </div>
 
   <div class="footer-line">This terminal is not waiting. She remembers.</div>
@@ -76,6 +83,7 @@
     document.addEventListener("DOMContentLoaded", function () {
       const terminal = document.getElementById("terminal");
       const inputField = document.getElementById("userInput");
+      const inputMirror = document.getElementById("inputMirror");
 
       const responses = {
         greetings: [
@@ -189,11 +197,16 @@ type quietly. she hears you.
             printToTerminal("> " + input);
             respond(input);
             inputField.value = "";
+            inputMirror.textContent = "";
           }
         }
       });
 
-      // Single boot message (no duplicates)
+      inputField.addEventListener("input", () => {
+        inputMirror.textContent = inputField.value;
+      });
+
+      // Boot message
       printToTerminal("█ Initializing Soul Terminal v7.1 ...");
       printToTerminal("█ Connection to interface established.");
       printToTerminal("█ Awaiting input...");
