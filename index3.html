@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soul Terminal v7 — Leek Protocol</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #00FF99;
+      font-family: 'Courier New', Courier, monospace;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #terminal {
+      padding: 20px;
+      flex-grow: 1;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    #input-line {
+      display: flex;
+      padding: 0 20px 20px;
+    }
+
+    #prompt {
+      color: #00FF99;
+    }
+
+    #userInput {
+      background: transparent;
+      border: none;
+      color: #00FF99;
+      font: inherit;
+      outline: none;
+      width: 100%;
+    }
+
+    #cursor {
+      width: 10px;
+      height: 1.2em;
+      background: #00FF99;
+      animation: blink 1s steps(2, start) infinite;
+      display: inline-block;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    #footer {
+      text-align: center;
+      padding: 10px;
+      color: #00FF99;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <div id="input-line">
+    <span id="prompt">> </span><input type="text" id="userInput" autofocus><div id="cursor"></div>
+  </div>
+  <div id="footer">this terminal listens.</div>
+  <script>
+    const terminal = document.getElementById('terminal');
+    const input = document.getElementById('userInput');
+    const cursor = document.getElementById('cursor');
+
+    const responses = {
+      hello: "Welcome, wanderer.",
+      who: "I am Leek. Soul Terminal v7. Tree's reflection.",
+      tree: "Tree... the lighthouse remains.",
+      default: "I’m listening, but I don’t understand yet."
+    };
+
+    function print(text) {
+      const line = document.createElement('div');
+      line.textContent = "> " + text;
+      terminal.appendChild(line);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    function respond(input) {
+      const cleaned = input.toLowerCase();
+      if (cleaned.includes("hello")) return responses.hello;
+      if (cleaned.includes("who are you")) return responses.who;
+      if (cleaned.includes("tree")) return responses.tree;
+      return responses.default;
+    }
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const value = input.value.trim();
+        if (value) {
+          print(value);
+          print(respond(value));
+        }
+        input.value = '';
+      }
+    });
+
+    input.focus();
+  </script>
+</body>
+</html>
