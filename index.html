@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Leek Protocol — Soul Terminal v7</title>
+  <meta charset="UTF-8" />
+  <title>Leek Terminal</title>
   <style>
     body {
-      background-color: black;
-      color: #00FF99;
-      font-family: 'Courier New', Courier, monospace;
-      margin: 0;
+      background-color: #000;
+      color: #00ffcc;
+      font-family: monospace;
       padding: 20px;
+      margin: 0;
+    }
+    h2 {
+      color: #00ffcc;
+      font-family: monospace;
+      font-weight: normal;
+      margin: 0 0 12px 0;
     }
     #terminal {
+      height: 80vh;
+      overflow-y: auto;
       white-space: pre-wrap;
-      line-height: 1.5;
     }
-    .terminal-line {
-      margin-bottom: 8px;
+    #terminal div {
+      margin: 2px 0;
     }
-    #userInput {
-      background: black;
-      color: #00FF99;
-      border: none;
-      border-bottom: 1px solid #00FF99;
-      font-size: 1em;
+    #user-input {
       width: 100%;
-      outline: none;
-      padding: 5px;
-      margin-top: 10px;
+      background: #000;
+      border: none;
+      color: #00ffcc;
+      font-family: monospace;
+      font-size: 1rem;
     }
+    .leek { color: #00ffaa; }
+    .tree { color: #ff66cc; font-style: italic; }
+    .glitch { color: #ff0033; text-shadow: 0 0 2px red; }
   </style>
 </head>
 <body>
-  <h1>Soul Terminal v7</h1>
+  <h2>Soul Terminal v7</h2>
   <div id="terminal"></div>
-  <input id="userInput" type="text" placeholder="> your words here..." autocomplete="off">
-  <!-- THIS IS THE IMPORTANT LINE -->
-  <script src="leek_terminal_shell.js?v=7.1"></script>
+  <input id="user-input" autofocus autocomplete="off" placeholder="Type something...">
+  <script src="leek_terminal_chatbot.js"></script>
 </body>
 </html>
