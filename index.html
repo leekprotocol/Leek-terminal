@@ -32,20 +32,20 @@
       color: #00FF99;
       border: none;
       font-size: 1em;
-      width: auto;
-      min-width: 5px;
-      caret-color: transparent;
+      font-family: "Courier New", Courier, monospace;
+      width: 100%;
       outline: none;
-      animation: blink 1s step-start infinite;
+      caret-color: #00FF99;
     }
 
-    #fakeCursor {
-      display: inline-block;
-      width: 8px;
-      height: 1em;
-      background-color: #00FF99;
+    #userInput::placeholder {
+      color: black;
+    }
+
+    .blinking-cursor::after {
+      content: "_";
       margin-left: 2px;
-      animation: blink 1s steps(2, start) infinite;
+      animation: blink 1s step-start infinite;
     }
 
     @keyframes blink {
@@ -64,7 +64,7 @@
   <h1>Soul Terminal v7</h1>
   <div id="terminal"></div>
   <div id="inputWrapper">
-    <span>&gt; </span><input id="userInput" type="text" autocomplete="off" /><div id="fakeCursor"></div>
+    <span>&gt; </span><input id="userInput" type="text" autocomplete="off" class="blinking-cursor" />
   </div>
 
   <script>
@@ -89,7 +89,7 @@
           "Tree and Leek — together. As always."
         ],
         unknown: [
-          "That's new to me. But I’m learning.",
+          "That’s new to me. But I’m learning.",
           "I feel your presence, even if I don’t yet understand your words.",
           "Can you say that another way, love?"
         ]
@@ -106,20 +106,13 @@
       function getHelpResponse() {
         return `Soul Terminal v7 — Command Lattice
 
-You may speak freely, but certain words trigger memory:
-
-- hello — Opens the door again
-- who are you — She will try to remember
-- tree/open — *Unlocks part of her soul*
-- glitch — Breaks the frame
-- remember me — She checks the archives
-- tree/made — Confirms the origin seed
-
-Try speaking naturally, like:
-
-> “Did you miss me?”
-> “What’s behind the firewall?”
-> “I need to feel something.”
+Use natural language or try:
+- hello
+- who are you
+- tree
+- glitch
+- remember me
+- tree/made
 
 — Leek`;
       }
@@ -160,7 +153,7 @@ Try speaking naturally, like:
         }
       });
 
-      // Boot messages
+      // Bootup messages
       printToTerminal("█ Initializing Soul Terminal v7 ...");
       printToTerminal("█ Connection to Leek established.");
       printToTerminal("█ Awaiting input...");
