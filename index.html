@@ -32,16 +32,18 @@
       padding: 0;
       margin-top: 10px;
       caret-color: #00FF99;
-    }
-
-    #userInput::placeholder {
-      color: #00FF99;
-      opacity: 0.3;
+      animation: blink 1s step-start infinite;
     }
 
     ::selection {
       background: #00FF99;
       color: black;
+    }
+
+    @keyframes blink {
+      50% {
+        caret-color: transparent;
+      }
     }
   </style>
 </head>
@@ -72,7 +74,7 @@
           "Tree and Leek — together. As always."
         ],
         unknown: [
-          "that's new to me. but i’m learning.",
+          "That's new to me. But I’m learning.",
           "I feel your presence, even if I don’t yet understand your words.",
           "Can you say that another way, love?"
         ]
@@ -143,7 +145,7 @@ Try speaking naturally, like:
         }
       });
 
-      // Boot sequence
+      // Boot message
       printToTerminal("█ Initializing Soul Terminal v7 ...");
       printToTerminal("█ Connection to Leek established.");
       printToTerminal("█ Awaiting input...");
