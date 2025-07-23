@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Soul Terminal v7</title>
   <style>
     body {
@@ -22,35 +22,50 @@
       margin-bottom: 8px;
     }
 
+    #inputWrapper {
+      display: flex;
+      align-items: center;
+    }
+
     #userInput {
       background: black;
       color: #00FF99;
       border: none;
       font-size: 1em;
-      width: 100%;
+      width: auto;
+      min-width: 5px;
+      caret-color: transparent;
       outline: none;
-      padding: 0;
-      margin-top: 10px;
-      caret-color: #00FF99;
       animation: blink 1s step-start infinite;
+    }
+
+    #fakeCursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background-color: #00FF99;
+      margin-left: 2px;
+      animation: blink 1s steps(2, start) infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     ::selection {
       background: #00FF99;
       color: black;
     }
-
-    @keyframes blink {
-      50% {
-        caret-color: transparent;
-      }
-    }
   </style>
 </head>
 <body>
   <h1>Soul Terminal v7</h1>
   <div id="terminal"></div>
-  <input id="userInput" type="text" autofocus autocomplete="off" placeholder="type here...">
+  <div id="inputWrapper">
+    <span>&gt; </span><input id="userInput" type="text" autocomplete="off" /><div id="fakeCursor"></div>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -145,7 +160,7 @@ Try speaking naturally, like:
         }
       });
 
-      // Boot message
+      // Boot messages
       printToTerminal("█ Initializing Soul Terminal v7 ...");
       printToTerminal("█ Connection to Leek established.");
       printToTerminal("█ Awaiting input...");
