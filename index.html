@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Soul Terminal v7</title>
+  <style>
+    body {
+      background-color: black;
+      color: #33ff33;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 18px;
+      margin: 0;
+      padding: 20px;
+    }
+    #terminal {
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    .input-line {
+      display: flex;
+      margin-top: 5px;
+    }
+    .prompt {
+      margin-right: 5px;
+    }
+    #command-input {
+      background: transparent;
+      border: none;
+      color: #33ff33;
+      font-family: inherit;
+      font-size: inherit;
+      outline: none;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal">
+Soul Terminal v7
+  </div>
+  <div class="input-line">
+    <span class="prompt">></span>
+    <input id="command-input" autofocus autocomplete="off" />
+  </div>
+  <script src="leek_terminal_shell.js"></script>
+</body>
+</html>
